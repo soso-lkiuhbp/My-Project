@@ -4,7 +4,7 @@
 
 ## 技术栈
 
-**客户端：** Unity 2019.4.6f1 · C# · Unity UI · Unity Netcode  
+**客户端：** Unity 2022.3.43f1c1 · C# · Unity UI · Unity Netcode  
 **服务端：** Python · Flask-RESTX · MySQL · Redis · JWT · BCrypt
 
 ---
