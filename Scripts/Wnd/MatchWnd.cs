@@ -1,0 +1,53 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class MatchWnd : BaseWnd 
+{
+    TMP_Text _lpID;
+    TMP_Text _rpID;
+    public override void Initial()
+    {
+        _lpID = SelfTransform.Find("LP/ID").GetComponent<TMP_Text>();
+        _rpID = SelfTransform.Find("RP/ID").GetComponent<TMP_Text>();
+        Button cancelBtn = SelfTransform.Find("CancelBtn").GetComponent<Button>();
+        cancelBtn.onClick.AddListener(OnCancelClick);
+        _lpID.text = LobbyNet.instance.LocalPlayerInfo.PlayerID;
+        LobbyNet.instance.StartMatch();
+    }
+    public void UpdateMatchInfo(RoomInfo roomInfo,PlayerInfo playerInfo)
+    {
+        if(roomInfo .HostPlayerID==playerInfo .PlayerID)
+        {
+            _rpID.text  = roomInfo.ClientPlayerID;
+            DeleteWnd();
+            WndManager.Instance.OpenWnd<GameWnd>();
+            LobbyNet.instance.SyncGameStart();
+        }
+        else
+        {
+            _rpID.text = roomInfo.HostPlayerID;
+        }
+    }
+    private void OnCancelClick()
+    {
+        LobbyNet.instance.CancelMatch();
+        CloseWnd();
+        WndManager.Instance.OpenWnd<LobbyWnd>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
